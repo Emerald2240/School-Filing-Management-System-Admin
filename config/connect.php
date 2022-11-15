@@ -4,7 +4,7 @@ class DBController
 	private $host = "localhost";
 	private $user = "root";
 	private $password = "";
-	private $database = "esut_gamma";
+	private $database = "jombo";
 
 	private $conn;
 	private $connPDO;
@@ -63,11 +63,16 @@ class DBController
 	function runQuery($query)
 	{
 		$result = mysqli_query($this->conn, $query);
-		while ($row = mysqli_fetch_assoc($result)) {
-			$resultset[] = $row;
+		if ($result) {
+
+
+			while ($row = mysqli_fetch_assoc($result)) {
+				$resultset[] = $row;
+			}
+			if (!empty($resultset)) return $resultset;
+		} else {
+			die(mysqli_error($this->conn)); //something a user can understand
 		}
-		if (!empty($resultset))
-			return $resultset;
 	}
 
 	function runQueryWithoutResponse($query)
@@ -77,7 +82,7 @@ class DBController
 		} else {
 			die(mysqli_error($this->conn)); //something a user can understand
 			//return false;
-			
+
 		}
 	}
 
@@ -166,7 +171,35 @@ class DBController
 
 	public function selectAllOrderBy($table, $orderBy)
 	{
-		$query = "SELECT * FROM $table ORDER BY `$orderBy` DESC ";
+		$query = "SELECT * FROM $table  ORDER BY `$orderBy` DESC ";
+		$result = $this->runQuery($query);
+		return $result;
+	}
+
+	public function selectAllWhereOrderByDesc($table, $where, $equals, $orderBy)
+	{
+		$query = "SELECT * FROM $table WHERE $where ='" . $equals . "' ORDER BY `$orderBy` DESC ";
+		$result = $this->runQuery($query);
+		return $result;
+	}
+
+	public function selectAllWhereOrderByAsc($table, $where, $equals, $orderBy)
+	{
+		$query = "SELECT * FROM $table WHERE $where ='" . $equals . "' ORDER BY `$orderBy` ASC ";
+		$result = $this->runQuery($query);
+		return $result;
+	}
+
+	public function selectAllWhereWith2ConditionsOrderByDesc($table, $where, $equals, $where2, $equals2, $orderBy)
+	{
+		$query = "SELECT * FROM $table WHERE $where ='" . $equals . "' AND $where2 ='" . $equals2 . "'ORDER BY `$orderBy` DESC ";
+		$result = $this->runQuery($query);
+		return $result;
+	}
+
+	public function selectAllWhereWith2ConditionsOrderByAsc($table, $where, $equals, $where2, $equals2, $orderBy)
+	{
+		$query = "SELECT * FROM $table WHERE $where ='" . $equals . "' AND $where2 ='" . $equals2 . "' ORDER BY `$orderBy` ASC ";
 		$result = $this->runQuery($query);
 		return $result;
 	}
