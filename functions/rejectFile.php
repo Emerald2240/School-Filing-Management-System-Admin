@@ -1,6 +1,6 @@
 <?php
-require_once('config/connect.php');
-require_once('functions/functions.php');
+require_once('../config/connect.php');
+require_once('functions.php');
 
 // print_r(json_encode($_POST));
 // print_r(json_encode($_GET));

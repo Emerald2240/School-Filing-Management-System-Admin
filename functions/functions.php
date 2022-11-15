@@ -248,6 +248,17 @@ function returnImagePerFilesProcessed($processed, $total)
   }
 }
 
+function getAllUploads()
+{
+  global $db_handle;
+
+  $result = $db_handle->selectAll('file_uploads');
+  if (isset($result)) {
+    return $result;
+  } else {
+    return false;
+  }
+}
 
 function getUploadInfo($uploadId)
 {
