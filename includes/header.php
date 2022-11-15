@@ -42,7 +42,7 @@
 							<div class="header-nav-main header-nav-main-square header-nav-main-effect-2 header-nav-main-sub-effect-1">
 								<nav class="collapse">
 									<ul class="nav nav-pills" id="mainNav">
-										<?php if (!isset($_SESSION['log'])) { ?>
+										<?php if (!isset($_SESSION['super_log'])) { ?>
 
 											<li>
 												<a class="nav-link" href="index">
@@ -95,7 +95,7 @@
 												Contact Us
 											</a>
 										</li>
-										<?php if (!isset($_SESSION['log'])) { ?>
+										<?php if (!isset($_SESSION['super_log'])) { ?>
 											<li>
 
 												<a class="nav-link" href="login">

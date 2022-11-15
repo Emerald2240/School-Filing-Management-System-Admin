@@ -49,7 +49,7 @@ require_once('functions/functions.php');
 						<div class="custom-bg-color-grey-2 rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.8, 'transition': true, 'transitionDuration': 500}">
 						</div>
 					</div>
-					<div class="row py-5 mb-5 mt-2 p-relative z-index-1">
+					<div class="row py-5 mb-5 mt-2 p-relative z-../user/index-1">
 						<div class="col">
 							<div class="overflow-hidden">
 								<ul class="breadcrumb d-block text-center appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="800">
@@ -113,7 +113,7 @@ require_once('functions/functions.php');
 						</div>
 						<div class="col-md-10 col-lg-6 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="2000">
 							<div class="card border-0 custom-border-radius-1 box-shadow-1 p-2">
-								<div class="card-body p-4 z-index-1">
+								<div class="card-body p-4 z-../user/index-1">
 									<h4 class="text-color-dark font-weight-semibold text-5 line-height-3 ls-0 mb-1 mt-2 pe-5 me-5">
 										Send Us a Message</h4>
 									<p class="pb-2 mb-4">Pellentesque ultricies nibh gravida, accumsan libero luctus.
@@ -158,7 +158,7 @@ require_once('functions/functions.php');
 			</section>
 
 			<section class="section section-height-3 bg-color-secondary position-relative border-0 m-0">
-				<div class="container position-relative z-index-1 pt-2 pb-5 mt-3 mb-5">
+				<div class="container position-relative z-../user/index-1 pt-2 pb-5 mt-3 mb-5">
 					<div class="row justify-content-center mb-3">
 						<div class="col-md-8 col-lg-6 text-center">
 							<div class="overflow-hidden mb-2">

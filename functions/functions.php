@@ -3,6 +3,24 @@ session_start();
 $db_handle = new DBController();
 
 
+$first_name = 'Tester';
+$last_name = 'Zero';
+$id = 1;
+$postemail = 'testerzero@mail.com';
+$phone = '08148863871';
+
+
+$_SESSION['user_name'] = ucwords(strtolower($first_name)) . " " . ucwords(strtolower($last_name));
+$_SESSION['first_name'] = $first_name;
+$_SESSION['last_name'] = $last_name;
+$_SESSION['full_name'] = $first_name . ' ' . $last_name;
+$_SESSION['staff_id'] = $id;
+$_SESSION['staff_email'] = $postemail;
+$_SESSION['phone'] = $phone;
+$_SESSION['super_log'] = true;
+
+
+
 /**
  * Removes unwanted and harmful characters
  * 
@@ -38,174 +56,6 @@ function gotoPage($location)
   exit();
 }
 
-
-function showSweetAlert($type, $id = null)
-{
-  switch ($type) {
-    case 'success':
-      echo '<script>swal({
-                //title: "New Course",
-                title: "Successful",
-                icon: "success",
-                button: "Got It!",
-              });</script>';
-      break;
-
-    case 'course_save_success':
-      echo '<script>
-            swal({
-                //title: "New Course",
-                title: "Successful",
-                icon: "success",
-                button: "Got It!",
-            });
-        </script>';
-      break;
-
-    case 'client_paid_admin_success':
-      echo '<script>swal({
-                        //title: "Edit Course",
-                        title: "Client Payment Confirmed",
-                        icon: "success",
-                        button: "Got It!",
-                      });</script>';
-      break;
-
-    case 'course_delete_success':
-      echo '<script>swal({
-                        //title: "Delete Course",
-                        title: "Course Deleted Succesfully",
-                        icon: "success",
-                        button: "Got It!",
-                      });</script>';
-      break;
-
-    case 'failure':
-      echo '<script>swal({
-                title: "Error",
-                //title: "Payment confirmation failed",
-                icon: "error",
-                button: "Got It!",
-              });</script>';
-      break;
-
-    case 'failure__argument_not_set':
-      echo '<script>swal({
-                    title: "Error!",
-                    text: "Missing compulsory argument",
-                    //title: "",
-                    icon: "error",
-                    button: "Got It!",
-                  });</script>';
-      break;
-
-    case 'warning':
-      break;
-
-    case 'info':
-      break;
-
-    case 'advanced':
-      echo '<script>swal({
-                        text: `Search for a movie. e.g. "La La Land".`,
-                        content: "input",
-                        button: {
-                          text: "Search!",
-                          closeModal: false,
-                        },
-                      })
-                      .then(name => {
-                        if (!name) throw null;
-                       
-                        return fetch(`https://itunes.apple.com/search?term=${name}&entity=movie`);
-                      })
-                      .then(results => {
-                        return results.json();
-                      })
-                      .then(json => {
-                        const movie = json.results[0];
-                       
-                        if (!movie) {
-                          return swal("No movie was found!");
-                        }
-                       
-                        const name = movie.trackName;
-                        const imageURL = movie.artworkUrl100;
-                       
-                        swal({
-                          title: "Top result:",
-                          text: name,
-                          icon: imageURL,
-                        });
-                      })
-                      .catch(err => {
-                        if (err) {
-                          swal("Oh noes!", "The AJAX request failed!", "error");
-                        } else {
-                          swal.stopLoading();
-                          swal.close();
-                        }
-                      });</script>';
-      break;
-
-    case 'getTrueOnButtonClicked':
-      echo '<script>swal("Click on either the button or outside the modal.")
-            .then((value) => {
-              swal(`The returned value is: ${value}`);
-            });</script>';
-
-    case 'warnBeforePerformingAction':
-      echo '<script>swal({
-              title: "Are you sure?",
-              text: "Once deleted, you will not be able to recover this imaginary file!",
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-            })
-            .then((willDelete) => {
-              if (willDelete) {
-                swal("Poof! Your imaginary file has been deleted!", {
-                  icon: "success",
-                });
-              } else {
-                swal("Your imaginary file is safe!");
-              }
-            });</script>';
-
-
-
-    default:
-      break;
-  }
-}
-
-function validateEmail($email)
-{
-  global $db_handle;
-  //$response = [];
-  $result = $db_handle->selectAllWhere('students', 'email', $email);
-
-  return isset($result) && count($result) > 0;
-}
-
-function validateStaffEmail($email)
-{
-  global $db_handle;
-  //$response = [];
-  $result = $db_handle->selectAllWhere('staff', 'email', $email);
-
-  return isset($result) && count($result) > 0;
-}
-
-function validateSuperAdminEmail($email)
-{
-  global $db_handle;
-  //$response = [];
-  $result = $db_handle->selectAllWhere('super_admins', 'email', $email);
-
-  return isset($result) && count($result) > 0;
-}
-
 function validateStudentRegNumber($reg)
 {
   global $db_handle;
@@ -215,134 +65,8 @@ function validateStudentRegNumber($reg)
   return isset($result) && count($result) > 0;
 }
 
-function confirmUserEmailAndPassword($postemail, $postpassword, $rememberMe)
-{
-  global $db_handle;
-  //$response = [];
-  //students first
-  $result = $db_handle->selectAllWhereWith2Conditions('students', 'email', $postemail, 'password', sha1($postpassword));
-  if (isset($result) && count($result) > 0) {
-    foreach ($result as $row) {
-      extract($row);
-      $_SESSION['user_name'] = ucwords(strtolower($first_name)) . " " . ucwords(strtolower($last_name));
-      $_SESSION['first_name'] = $first_name;
-      $_SESSION['last_name'] = $last_name;
-      $_SESSION['full_name'] = $first_name . ' ' . $last_name;
-      $_SESSION['student_id'] = $id;
-      $_SESSION['student_email'] = $postemail;
-      $_SESSION['student_set'] = $set_year;
-      $_SESSION['phone'] = $phone;
-      $_SESSION['student_reg'] = $row['reg_no'];
-      $_SESSION['student_level'] = calculateStudentLevel($set_year);
-      $_SESSION['student_next_filing_session'] = getStudentNextFilingSession($id);
-
-
-      $_SESSION['log'] = true;
-
-      // //This is the line of code for saving cookies AKA remember me
-
-      // if (isset($remember)) {
-      if ($rememberMe == true) {
-        //Creates a cookie named "user" with the value "John Doe". The cookie will expire after 30 days (86400 * 30). The "/" means that the cookie is available in entire website (otherwise, select the directory you prefer).
-
-        //setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-        setcookie('client_mail', $postemail, time() + (86400 * 30), "/"); // 86400 = 1 day
-        setcookie('client_password', $postpassword, time() + (86400 * 30), "/"); // 86400 = 1 day
-
-      } else {
-        if (isset($_COOKIE['mem_log'])) {
-          setcookie('mem_log', '');
-        }
-        setcookie("client_mail",  $_SESSION['user_email'], time() + (10 * 365 * 24 * 60 * 60));
-        setcookie("client_pass", '', time() + (10 * 365 * 24 * 60 * 60));
-      }
-    }
-    return $result;
-  } else {
-    //lecturers next
-    $result = $db_handle->selectAllWhereWith2Conditions('staff', 'email', $postemail, 'password', sha1($postpassword));
-    if (isset($result) && count($result) > 0) {
-      foreach ($result as $row) {
-        extract($row);
-        $_SESSION['user_name'] = ucwords(strtolower($first_name)) . " " . ucwords(strtolower($last_name));
-        $_SESSION['first_name'] = $first_name;
-        $_SESSION['last_name'] = $last_name;
-        $_SESSION['full_name'] = $first_name . ' ' . $last_name;
-        $_SESSION['staff_id'] = $id;
-        $_SESSION['staff_email'] = $postemail;
-        $_SESSION['staff_title'] = $title;
-        $_SESSION['phone'] = $phone;
-
-        $_SESSION['super_log'] = true;
-
-        // //This is the line of code for saving cookies AKA remember me
-
-        // if (isset($remember)) {
-        if ($rememberMe == true) {
-          //Creates a cookie named "user" with the value "John Doe". The cookie will expire after 30 days (86400 * 30). The "/" means that the cookie is available in entire website (otherwise, select the directory you prefer).
-
-          //setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-          setcookie('client_mail', $postemail, time() + (86400 * 30), "/"); // 86400 = 1 day
-          setcookie('client_password', $postpassword, time() + (86400 * 30), "/"); // 86400 = 1 day
-
-        } else {
-          if (isset($_COOKIE['mem_log'])) {
-            setcookie('mem_log', '');
-          }
-          setcookie("client_mail",  $_SESSION['user_email'], time() + (10 * 365 * 24 * 60 * 60));
-          setcookie("client_pass", '', time() + (10 * 365 * 24 * 60 * 60));
-        }
-      }
-      return $result;
-    } else {
-      //superAdmins last
-      $result = $db_handle->selectAllWhereWith2Conditions('super_admins', 'email', $postemail, 'password', sha1($postpassword));
-      if (isset($result) && count($result) > 0) {
-        foreach ($result as $row) {
-          extract($row);
-          $_SESSION['user_name'] = ucwords(strtolower($first_name)) . " " . ucwords(strtolower($last_name));
-          $_SESSION['first_name'] = $first_name;
-          $_SESSION['last_name'] = $last_name;
-          $_SESSION['full_name'] = $first_name . ' ' . $last_name;
-          $_SESSION['sadmin_id'] = $id;
-          $_SESSION['sadmin_email'] = $postemail;
-          $_SESSION['sadmin_authority'] = $authority;
-          $_SESSION['phone'] = $phone;
-
-          $_SESSION['ultra_log'] = true;
-
-          // //This is the line of code for saving cookies AKA remember me
-
-          // if (isset($remember)) {
-          if ($rememberMe == true) {
-            //Creates a cookie named "user" with the value "John Doe". The cookie will expire after 30 days (86400 * 30). The "/" means that the cookie is available in entire website (otherwise, select the directory you prefer).
-
-            //setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-            setcookie('client_mail', $postemail, time() + (86400 * 30), "/"); // 86400 = 1 day
-            setcookie('client_password', $postpassword, time() + (86400 * 30), "/"); // 86400 = 1 day
-
-          } else {
-            if (isset($_COOKIE['mem_log'])) {
-              setcookie('mem_log', '');
-            }
-            setcookie("client_mail",  $_SESSION['user_email'], time() + (10 * 365 * 24 * 60 * 60));
-            setcookie("client_pass", '', time() + (10 * 365 * 24 * 60 * 60));
-          }
-        }
-        return $result;
-      } else {
-        return ([['error' => 'Wrong Password']]);
-        //return false;
-      }
-      //return false;
-    }
-    //return false;
-  }
-}
-
 function getDepartmentId($departmentName)
 {
-
   global $db_handle;
 
   $result = $db_handle->selectAllWhere('departments', 'department_name', $departmentName);
@@ -350,49 +74,6 @@ function getDepartmentId($departmentName)
     return $result[0]['id'];
   } else {
     return false;
-  }
-}
-
-function createNewStudent($firstName, $lastName, $gender, $email, $phone, $reg, $departmentId, $password)
-{
-  global $db_handle;
-
-  $firstName = sanitize($firstName, 'clean');
-  $lastName = sanitize($lastName, 'clean');
-  $email = sanitize($email);
-  $gender = sanitize($gender);
-  $phone = sanitize($phone);
-  $reg = sanitize($reg);
-  //$departmentId = getDepartmentID(sanitize($department));
-  $password = sha1($password);
-
-
-  $query = "INSERT INTO `students` (
-  `first_name`,
-  `last_name`,	
-  `gender`,
-  `email`,
-  `reg_no`,	
-  `phone`,
-  `department_id`,	
-  `password`) VALUES (
-    '$firstName',
-    '$lastName',
-    '$gender',
-    '$email',
-    '$reg',
-    '$phone',
-    $departmentId,
-    '$password');";
-  return $db_handle->runQueryWithoutResponse($query);
-}
-
-function getCalenderYearPerLevel($coursesTaken, $level)
-{
-  for ($i = 0; $i < count($coursesTaken); $i++) {
-    if ($coursesTaken[$i]['course_level'] == $level) {
-      return $coursesTaken[$i]['year_taken'];
-    }
   }
 }
 
@@ -426,19 +107,6 @@ function createLog($title, $description)
     '$description'
          )";
   return $db_handle->runQueryWithoutResponse($query);
-}
-
-function getCourseSessionInfo($courseId, $credits)
-{
-  global $db_handle;
-  //$response = [];
-  $result = $db_handle->selectAllWhereWith2Conditions('results', 'course_id', $courseId, 'course_credits', $credits);
-
-  if (isset($result)) {
-    return $result[0];
-  } else {
-    return false;
-  }
 }
 
 function getStudentNextFilingSession($studentId)
@@ -483,12 +151,11 @@ function addNewFileUploads($courseReg1, $courseReg2, $departmentalFee, $facultyF
   return $db_handle->runQueryWithoutResponse($query);
 }
 
-
-function getAllFileSessionsUploaded($studentId)
+function getAllFileSessionsUploaded()
 {
   global $db_handle;
   //$response = [];
-  $result = $db_handle->selectAllWhereOrderByAsc('file_uploads', 'student_id', $studentId, 'level');
+  $result = $db_handle->selectAllOrderByAsc('file_uploads', 'level');
 
   if (isset($result)) {
     return $result;
@@ -545,5 +212,100 @@ function returnFaIconPerStatus($status)
 
     default:
       return 'warning';
+  }
+}
+
+function returnNumberOfFilesPerStatusPerYear($uploads, $status, $level)
+{
+  $count = 0;
+  foreach ($uploads as $upload) {
+    if ($upload['level'] == $level && $upload['status'] == $status) {
+      $count++;
+    }
+  }
+  return $count;
+}
+
+function returnNumberOfFilesPerYear($uploads, $level)
+{
+  $count = 0;
+  foreach ($uploads as $upload) {
+    if ($upload['level'] == $level) {
+      $count++;
+    }
+  }
+  return $count;
+}
+
+function returnImagePerFilesProcessed($processed, $total)
+{
+  $result = $total - $processed;
+
+  if ($result > 0) {
+    return 'file_waiting.svg';
+  } else {
+    return 'file_approved.svg';
+  }
+}
+
+
+function getUploadInfo($uploadId)
+{
+  global $db_handle;
+
+  $result = $db_handle->selectAllWhere('file_uploads', 'id', $uploadId);
+  if (isset($result)) {
+    return $result[0];
+  } else {
+    return false;
+  }
+}
+
+function getStudentInfo($studentId)
+{
+  global $db_handle;
+
+  $result = $db_handle->selectAllWhere('students', 'id', $studentId);
+  if (isset($result)) {
+    return $result[0];
+  } else {
+    return false;
+  }
+}
+
+function approveFile($uploadId)
+{
+  $staffId =  $_SESSION['staff_id'];
+  global $db_handle;
+
+  $query = "UPDATE `file_uploads` SET 
+  `status` = 'Approved', `staff_id` = $staffId
+  WHERE `file_uploads`.`id` = $uploadId";
+
+  if ($db_handle->runQueryWithoutResponse($query)) {
+    // createLog('Success', 'updateCourseSessionResults');
+    return true;
+  } else {
+    // createLog('Failed', 'updateCourseSessionResults');
+    return false;
+  }
+}
+
+function rejectFile($uploadId)
+{
+  $staffId =  $_SESSION['staff_id'];
+
+  global $db_handle;
+
+  $query = "UPDATE `file_uploads` SET 
+  `status` = 'Rejected', `staff_id` = $staffId
+  WHERE `file_uploads`.`id` = $uploadId";
+
+  if ($db_handle->runQueryWithoutResponse($query)) {
+    // createLog('Success', 'updateCourseSessionResults');
+    return true;
+  } else {
+    // createLog('Failed', 'updateCourseSessionResults');
+    return false;
   }
 }

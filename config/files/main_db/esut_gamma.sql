@@ -6340,11 +6340,11 @@ INSERT INTO `super_admins` (`id`, `first_name`, `last_name`, `email`, `phone`, `
 (1, 'Michael', 'Orji', 'orjimichael4886@gmail.com', '08148863871', '356a192b7913b04c54574d18c28d46e6395428ab', 'ultimate', '2022-10-17', '2022-10-17 14:48:48', 0);
 
 --
--- Indexes for dumped tables
+-- ../user/indexes for dumped tables
 --
 
 --
--- Indexes for table `courses`
+-- ../user/indexes for table `courses`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`),
@@ -6353,7 +6353,7 @@ ALTER TABLE `courses`
   ADD KEY `department` (`department_id`);
 
 --
--- Indexes for table `departments`
+-- ../user/indexes for table `departments`
 --
 ALTER TABLE `departments`
   ADD PRIMARY KEY (`id`),
@@ -6361,7 +6361,7 @@ ALTER TABLE `departments`
   ADD UNIQUE KEY `department_code` (`department_code`);
 
 --
--- Indexes for table `lecturers`
+-- ../user/indexes for table `lecturers`
 --
 ALTER TABLE `lecturers`
   ADD PRIMARY KEY (`id`),
@@ -6370,13 +6370,13 @@ ALTER TABLE `lecturers`
   ADD KEY `department` (`department`);
 
 --
--- Indexes for table `log`
+-- ../user/indexes for table `log`
 --
 ALTER TABLE `log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `results`
+-- ../user/indexes for table `results`
 --
 ALTER TABLE `results`
   ADD PRIMARY KEY (`id`),
@@ -6385,7 +6385,7 @@ ALTER TABLE `results`
   ADD KEY `practical_lecturer_id` (`practical_lecturer_id`);
 
 --
--- Indexes for table `students`
+-- ../user/indexes for table `students`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`id`),
@@ -6395,7 +6395,7 @@ ALTER TABLE `students`
   ADD KEY `department_id` (`department_id`);
 
 --
--- Indexes for table `super_admins`
+-- ../user/indexes for table `super_admins`
 --
 ALTER TABLE `super_admins`
   ADD PRIMARY KEY (`id`),

@@ -1,47 +1,123 @@
 
-
-function processLoginAjaxPostRequest(url, dataRequest) {
+function approveUpload(url, dataRequest) {
     console.log(dataRequest);
-    setLoader();
-    $.post(url,   // url
-        dataRequest,//{ myData: 'This is my data.' }, // data to be submit
-        function (data, status, jqXHR) {// success callback
-            //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
-            var dataParsed = JSON.parse(data);
-            console.log(data);
-            console.log(dataParsed);
-            //removeLoader();
+    // setLoader();
 
-            if (dataParsed[0].error == null) {
-                swal("Welcome " + dataParsed[0].first_name + " " + dataParsed[0].last_name, {
-                    title: "Success",
-                    icon: "success"
-                })
+    swal({
+        title: 'Approve File?',
+        text: 'This Action Cannot Be Reversed',
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.post(url,   // url
+                    dataRequest,//{ myData: 'This is my data.' }, // data to be submit
+                    function (data, status, jqXHR) {// success callback
+                        //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
+                        var dataParsed = JSON.parse(data);
+                        console.log(data);
+                        // console.log(dataParsed);
+                        //removeLoader();
 
-                    .then((value) => {
-                        if (value) {
-                            //swal(`The returned value is: ${value}`);
-                            window.location = 'dashboard';
+                        if (dataParsed[0].error == null) {
+
+                            swal("File approved successfully", {
+                                title: "Success",
+                                icon: "success"
+                            })
+
+                                .then((value) => {
+                                    if (value) {
+                                        //swal(`The returned value is: ${value}`);
+                                        window.location = 'dashboard';
+                                    } else {
+                                        //swal(`The returned value is: ${value}`);
+                                        window.location = 'dashboard';
+                                    }
+                                });
+
                         } else {
-                            //swal(`The returned value is: ${value}`);
-                            window.location = 'dashboard';
+                            swal({
+                                //title: "New Course",
+                                title: "Error",
+                                icon: "error",
+                                text: "Error: " + dataParsed[0].error
+                                //button: "Got It!",
+                            });
+
                         }
-                    });
 
+                    })
             } else {
-                swal({
-                    //title: "New Course",
-                    title: "Error",
-                    icon: "error",
-                    text: "Error: " + dataParsed[0].error
-                    //button: "Got It!",
-                });
-
+                //swal("Great Choice!");
             }
+        });
 
-        })
+
+
 }
 
+function rejectUpload(url, dataRequest) {
+    console.log(dataRequest);
+    // setLoader();
+
+    swal({
+        title: 'Reject File?',
+        text: 'This Action Cannot Be Reversed.',
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.post(url,   // url
+                    dataRequest,//{ myData: 'This is my data.' }, // data to be submit
+                    function (data, status, jqXHR) {// success callback
+                        //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
+                        var dataParsed = JSON.parse(data);
+                        console.log(data);
+                        // console.log(dataParsed);
+                        //removeLoader();
+
+                        if (dataParsed[0].error == null) {
+
+                            swal("File approved successfully", {
+                                title: "Success",
+                                icon: "success"
+                            })
+
+                                .then((value) => {
+                                    if (value) {
+                                        //swal(`The returned value is: ${value}`);
+                                        window.location = 'dashboard';
+                                    } else {
+                                        //swal(`The returned value is: ${value}`);
+                                        window.location = 'dashboard';
+                                    }
+                                });
+
+                        } else {
+                            swal({
+                                //title: "New Course",
+                                title: "Error",
+                                icon: "error",
+                                text: "Error: " + dataParsed[0].error
+                                //button: "Got It!",
+                            });
+
+                        }
+
+                    })
+            } else {
+                //swal("Great Choice!");
+            }
+        });
+
+
+
+}
 
 function removeLoader() {
     // $(".loader").animate({ opacity: '0.2' });
@@ -156,14 +232,14 @@ function logout() {
 
 function createNewStudent(url, dataRequest) {
     getConfirmation('Are you sure?', 'Once sent, it cannot be edited until assessed by the school.', linkIfYes)
-    console.log(dataRequest);
+    // console.log(dataRequest);
     setLoader();
     $.post(url,   // url
         dataRequest,//{ myData: 'This is my data.' }, // data to be submit
         function (data, status, jqXHR) {// success callback
             //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
             var dataParsed = JSON.parse(data);
-            console.log(dataParsed);
+            // console.log(dataParsed);
             removeLoader();
 
             if (dataParsed[0].error == null) {
@@ -197,14 +273,14 @@ function createNewStudent(url, dataRequest) {
 
 function sendNewFiles(url, dataRequest) {
     // if (getSimpleConfirmation('Are you sure?', 'Once sent, it cannot be edited until assessed by the school.') == true) {
-    console.log(dataRequest);
+    // console.log(dataRequest);
     setLoader();
     $.post(url,   // url
         dataRequest,//{ myData: 'This is my data.' }, // data to be submit
         function (data, status, jqXHR) {// success callback
             //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
             var dataParsed = JSON.parse(data);
-            console.log(dataParsed);
+            // console.log(dataParsed);
             removeLoader();
 
             if (dataParsed[0].error == null) {
@@ -408,7 +484,7 @@ function setImageSrc(imageId, inputId, linkTitleId) {
 
     $(imageId).on('load', function () {
         // linkTitleId.innerText = imageId.contentWindow.title;
-        console.log(imageId.contentDocument.title);
+        // console.log(imageId.contentDocument.title);
         if (imageId.contentWindow) {
             linkTitleId.innerText = imageId.contentWindow.title;
         }
@@ -441,8 +517,8 @@ function uploadFiles(url, dataRequest) {
         function (data, status, jqXHR) {// success callback
             //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
             var dataParsed = JSON.parse(data);
-            console.log(data);
-            console.log(dataParsed);
+            // console.log(data);
+            // console.log(dataParsed);
             //removeLoader();
 
             if (dataParsed[0].error == null) {

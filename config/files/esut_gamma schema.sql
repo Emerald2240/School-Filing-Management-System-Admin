@@ -1156,24 +1156,24 @@ CREATE TABLE `super_admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- ../user/indexes for dumped tables
 --
 
 --
--- Indexes for table `courses`
+-- ../user/indexes for table `courses`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `code` (`course_code`);
 
 --
--- Indexes for table `department`
+-- ../user/indexes for table `department`
 --
 ALTER TABLE `department`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `lecturers`
+-- ../user/indexes for table `lecturers`
 --
 ALTER TABLE `lecturers`
   ADD PRIMARY KEY (`id`),
@@ -1181,26 +1181,26 @@ ALTER TABLE `lecturers`
   ADD UNIQUE KEY `phone` (`phone`);
 
 --
--- Indexes for table `log`
+-- ../user/indexes for table `log`
 --
 ALTER TABLE `log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `results`
+-- ../user/indexes for table `results`
 --
 ALTER TABLE `results`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `students`
+-- ../user/indexes for table `students`
 --
 ALTER TABLE `students`
   ADD UNIQUE KEY `reg_no` (`reg_no`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `super_admins`
+-- ../user/indexes for table `super_admins`
 --
 ALTER TABLE `super_admins`
   ADD UNIQUE KEY `email` (`email`),

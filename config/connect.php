@@ -169,7 +169,14 @@ class DBController
 		return $result;
 	}
 
-	public function selectAllOrderBy($table, $orderBy)
+	public function selectAllOrderByAsc($table, $orderBy)
+	{
+		$query = "SELECT * FROM $table  ORDER BY `$orderBy` ASC ";
+		$result = $this->runQuery($query);
+		return $result;
+	}
+
+	public function selectAllOrderByDesc($table, $orderBy)
 	{
 		$query = "SELECT * FROM $table  ORDER BY `$orderBy` DESC ";
 		$result = $this->runQuery($query);

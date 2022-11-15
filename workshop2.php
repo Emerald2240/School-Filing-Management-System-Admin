@@ -54,7 +54,7 @@ if (!isset($_SESSION['log'])) {
 						<div class="custom-bg-color-grey-2 rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.8, 'transition': true, 'transitionDuration': 500}">
 						</div>
 					</div>
-					<div class="row py-5 mb-5 mt-2 p-relative z-index-1">
+					<div class="row py-5 mb-5 mt-2 p-relative z-../user/index-1">
 						<div class="col">
 							<div class="overflow-hidden">
 								<ul class="breadcrumb d-block text-center appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="800">
@@ -81,7 +81,7 @@ if (!isset($_SESSION['log'])) {
 
 							<article>
 								<div class="card border-0 border-radius-0 mb-5 box-shadow-1">
-									<div class="card-body p-4 z-index-1">
+									<div class="card-body p-4 z-../user/index-1">
 										<p class="text-uppercase text-1 mb-3 text-color-default"><time pubdate datetime="2022-01-10">10 Jan 2022</time> <span class="opacity-3 d-inline-block px-2">|</span> 3 Comments <span class="opacity-3 d-inline-block px-2">|</span> John Doe</p>
 
 										<div class="post-image pb-4">
@@ -391,7 +391,7 @@ if (!isset($_SESSION['log'])) {
 			</section>
 
 			<section class="section section-height-3 bg-color-secondary position-relative border-0 m-0">
-				<div class="container position-relative z-index-1 pt-2 pb-5 mt-3 mb-5">
+				<div class="container position-relative z-../user/index-1 pt-2 pb-5 mt-3 mb-5">
 					<div class="row justify-content-center mb-3">
 						<div class="col-md-8 col-lg-6 text-center">
 							<div class="overflow-hidden mb-2">
